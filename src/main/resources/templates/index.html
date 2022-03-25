@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <style src="style.css"></style>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+<section>
+    <div class="container">
+        <h1>Калькулятор</h1>
+        <form id="form" action="">
+            <div class="row mt-3 justify-content-center">
+                <div class="col-4">
+                     <div class="row mt-1">
+                         <div class="col">
+                             <label>Марка авто</label>
+                             <select id="brand">
+                                 <option selected>Выберите марку</option>
+                             </select>
+                         </div>
+                     </div>
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Модель авто</label>
+                            <select id="model">
+                                <option selected>Выберите модель</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Модификация авто</label>
+                            <select id="modification">
+                                <option selected>Выберите модификацию</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Комплектация</label>
+                            <select id="equipment">
+                                <option selected>Выберите комплектацию</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <input id="form3d" type="checkbox"/><label>3D формовка</label><br/>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Добавить к комплекту:</label><br/>
+                            <input id="jumper" type="checkbox"/><label id="jumpertext">Перемычка</label><br/>
+                            <input id="row3" type="checkbox"/><label id="row3text">Третий ряд</label><br/>
+                            <input id="trunk" type="checkbox"/><label id="trunktext">Коврик в багажник</label>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Крепления:</label><br/>
+                            <input id="velcro" type="checkbox" checked disabled/><label>Липучки(бессплатно)</label><br/>
+                            <input id="eyelets" type="checkbox" checked disabled/><label>Люверсы(бесплатно)</label><br/>
+                            <input id="mounts" type="checkbox"/><label id="mountstext">Заводские крепления(+1000)</label><br/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-4">
+
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Цвет коврика</label>
+                            <select id="rug-color">
+                                <option selected>Выберите цвет</option>
+                                <option>Черный</option>
+                                <option>Красный</option>
+                                <option>Серый</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Цвет окантовки</label>
+                            <select id="border-color">
+                                <option selected>Выберите цвет</option>
+                                <option>Желтый</option>
+                                <option>Белый</option>
+                                <option>Коричневый</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            <h3>Выберите дополнительные аксессуары:</h3><br/>
+                            <label>Подпятник</label>
+                            <select id="saddle">
+                                <option selected>Без подпятника</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            <label>Шильдик</label>
+                            <label id="btnMinusNameplate">-</label>
+                            <label id="countNameplate">0</label>
+                            <label id="btnPlusNameplate">+</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <label>Итого: <label id="total">0</label> руб.</label><br/>
+                        <input id="basket" type="submit" value="В корзину"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
