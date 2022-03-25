@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface EquipmentService {
     public List<Equipment> getALlEquipment();
+
+    public List<Equipment> getALlEquipmentByCategoryId(long categoryId, long materialId);
 }

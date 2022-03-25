@@ -29,8 +29,9 @@ public class Modification {
     @Column(name = "row3")
     private boolean row3;
 
-    @Column(name = "coefficient", columnDefinition = "double default 1.5")
-    private double coefficient;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "modelcar_id")

@@ -23,4 +23,12 @@ public class Equipment {
     @Column(name = "price")
     private int price;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "material_id")
+    private Material material;
+
 }

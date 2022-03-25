@@ -19,10 +19,4 @@ public class Material {
 
     @Column(name = "materialname")
     private String name;
-
-    @Column(name = "note")
-    private String note;
-
-    @Column(name = "coefficient")
-    private double coefficient;
 }

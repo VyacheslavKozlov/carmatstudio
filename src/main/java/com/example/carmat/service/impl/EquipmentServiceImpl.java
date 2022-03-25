@@ -16,4 +16,9 @@ public class EquipmentServiceImpl implements EquipmentService {
     public List<Equipment> getALlEquipment() {
         return equipmentRepository.findAll();
     }
+
+    @Override
+    public List<Equipment> getALlEquipmentByCategoryId(long categoryId, long materialId) {
+        return equipmentRepository.findAllByCategoryIdAndMaterialId(categoryId, materialId);
+    }
 }
