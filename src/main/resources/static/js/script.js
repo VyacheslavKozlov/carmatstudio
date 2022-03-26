@@ -22,7 +22,9 @@ let modificationList;
 let additionList;
 let materialList;
 
-let material = 'eva';
+let material = 'pile';
+
+let urlImg;
 
 initialize();
 
@@ -268,6 +270,32 @@ function initialize() {
     selectModel.prop('disabled', true);
     selectModification.prop('disabled', true);
     selectEquipment.prop('disabled', true);
+
+
+    if (material === 'pile'){
+        $('#form3d').attr('hidden', 'hidden');
+    }
+    if (material === 'eva'){
+        $('#stitching-color').attr('hidden', 'hidden');
+    }
+
+    $.ajax({
+        url: '/picture',
+        method: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function (data){
+            console.log('picture = ');
+            console.log(data.pathPicture);
+            $('#rugimg').append('<img src="img/'+ data.pathPicture +'" />');
+        },
+        error: function(xhr, status, error){
+            let errorMessage = xhr.status + ': ' + xhr.statusText;
+            alert('Error - ' + errorMessage);
+        }
+
+    })
+
 }
 
 //запрос в БД для получения списка марок автомобилей
