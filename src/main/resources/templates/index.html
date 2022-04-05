@@ -9,22 +9,24 @@
           crossorigin="anonymous">
     <style src="css/style.css"></style>
     <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
+    <title>Carmat</title>
 </head>
 <body>
 
 <section>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-4 text-center">
-                <h1>Калькулятор</h1>
+            <div class="col-6 text-center">
+                <div class="row mb-3">
+                    <h1>Конфигуратор eva-ковриков</h1>
+                </div>
             </div>
         </div>
         <form id="form" action="">
             <div class="row mt-3 justify-content-center">
                 <div class="col-4">
                      <div class="row mt-1">
-                         <div class="col">
+                         <div class="col flex-box">
                              <label>Марка авто</label>
                              <select id="brand">
                                  <option selected>Выберите марку</option>
@@ -33,7 +35,7 @@
                      </div>
 
                     <div class="row mt-1">
-                        <div class="col">
+                        <div class="col flex-box">
                             <label>Модель авто</label>
                             <select id="model">
                                 <option selected>Выберите модель</option>
@@ -42,7 +44,7 @@
                     </div>
 
                     <div class="row mt-1">
-                        <div class="col">
+                        <div class="col flex-box">
                             <label>Модификация авто</label>
                             <select id="modification">
                                 <option selected>Выберите модификацию</option>
@@ -51,8 +53,8 @@
                     </div>
 
                     <div class="row mt-1">
-                        <div class="col">
-                            <label>Комплектация</label>
+                        <div class="col flex-box">
+                            <label>Комплектация</label><br/>
                             <select id="equipment">
                                 <option selected>Выберите комплектацию</option>
                             </select>
@@ -61,7 +63,7 @@
 
                     <div id="form3d" class="row mt-1">
                         <div class="col">
-                            <input type="checkbox"/><label>3D формовка</label><br/>
+                            <input type="checkbox" checked disabled/><label>3D формовка</label><br/>
                         </div>
                     </div>
 
@@ -82,41 +84,30 @@
                             <input id="mounts" type="checkbox"/><label id="mountstext">Заводские крепления(+1000)</label><br/>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-4">
-
                     <div class="row mt-1">
-                        <div class="col">
+                        <div class="col flex-box">
                             <label>Цвет коврика</label>
                             <select id="rug-color">
                                 <option selected>Выберите цвет</option>
-                                <option>Черный</option>
-                                <option>Красный</option>
-                                <option>Серый</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mt-1">
-                        <div class="col">
+                        <div class="col flex-box">
                             <label>Цвет окантовки</label>
                             <select id="border-color">
                                 <option selected>Выберите цвет</option>
-                                <option>Желтый</option>
-                                <option>Белый</option>
-                                <option>Коричневый</option>
                             </select>
                         </div>
                     </div>
                     <div id="stitching-color" class="row mt-1">
-                        <div class="col">
+                        <div class="col flex-box">
                             <label>Цвет отстрочки</label>
                             <select>
                                 <option selected>Выберите цвет</option>
-                                <option>Желтый</option>
-                                <option>Белый</option>
-                                <option>Коричневый</option>
                             </select>
                         </div>
                     </div>
@@ -126,7 +117,7 @@
                     </div>
                     <div class="row mt-1">
                         <div class="col">
-                            <h3>Выберите дополнительные аксессуары:</h3><br/>
+                            <span class="mt-3" style="font-size: 20px">Выберите дополнительные аксессуары:</span><br/>
                             <label>Подпятник</label>
                             <select id="saddle">
                                 <option selected>Без подпятника</option>
@@ -139,16 +130,18 @@
                             <label id="btnMinusNameplate">-</label>
                             <label id="countNameplate">0</label>
                             <label id="btnPlusNameplate">+</label>
-                            <div id="rugimg">
-<!--                                <img src="img/images.jpeg">-->
+                            <div id="borderimg" style="position: relative; width: 210px; height: 210px; border-radius: 5px;  background-color: white; border: 1px solid #adb5bd">
+                                <div id="rugimg" style="width: 200px; height: 200px; background-color: white; border: 1px solid #adb5bd; position: absolute; top: 5px; left: 5px; border-radius: 5px; background-size: cover; background-repeat: no-repeat">
+                                    <div style="width: 5px; height: 5px; background-color: #FF0000; border-radius: 5px; position: absolute; bottom: 5px; right: 5px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mt-3">
                     <div class="col-12 text-center">
-                        <label>Итого: <label id="total">0</label> руб.</label><br/>
-                        <input id="basket" type="submit" value="В корзину"/>
+                        <label>Итого: <label style="font-size: 20px" id="total">0</label> руб.</label><br/>
+<!--                        <input id="basket" type="submit" value="В корзину"/>-->
                     </div>
                 </div>
             </div>
@@ -157,8 +150,6 @@
 </section>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/clear.js"></script>
-<script type="text/javascript" src="js/clear.js"></script>
 <script type="text/javascript" src="js/defaultSelectEquipment.js"></script>
-<script type="text/javascript" src="js/getEquipments.js"></script>
 </body>
 </html>

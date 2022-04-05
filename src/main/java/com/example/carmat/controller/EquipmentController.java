@@ -20,6 +20,4 @@ public class EquipmentController {
     public List<Equipment> getAllEquipmentByCategoryId(@PathVariable("category") long categoryId, @PathVariable("material") long materialId){
         return equipmentService.getALlEquipmentByCategoryId(categoryId, materialId);
     }
-
-
 }

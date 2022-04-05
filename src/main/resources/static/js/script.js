@@ -22,14 +22,16 @@ let modificationList;
 let additionList;
 let materialList;
 
-let material = 'pile';
+let material = 'eva';
+
+let colorList;
 
 let urlImg;
 
 initialize();
 
 //обработчик изменения списка брендов
-$('#brand').change(function (event) {
+$('#brand').change(function () {
     if ($('#brand option:selected').text() !== 'Выберите марку') {
         $.ajax({
             url: '/modelcar/'+$('#brand option:selected').val(),
@@ -68,7 +70,7 @@ $('#brand').change(function (event) {
 })
 
 //обработчик изменения списка моделей
-selectModel.change(function (event) {
+selectModel.change(function () {
     if ($('#model option:selected').text() !== 'Выберите модель') {
         // запрос в базу на получение списка модификаций
         $.ajax({
@@ -123,44 +125,41 @@ selectModification.change(function (event) {
             }
         }
         console.log('after change modification')
-        if (material === 'eva') {
-            materialCategory = 1;
 
-            if (isJumper){
-                jumper = additionList[0].price;
-                $('#jumpertext').text('Перемычка (+'+jumper+'руб.)');
-                $('#jumper').prop('disabled', false);
-            } else {
-                $('#jumpertext').text('Перемычка');
-                $('#jumper').prop('disabled', true);
-                $('#jumper').prop('checked', false);
-                sumOrder -= jumper;
-                $('total').text(sumOrder);
-                jumper = 0;
-            }
+        if (isJumper){
+            jumper = additionList[0].price;
+            $('#jumpertext').text('Перемычка (+'+jumper+'руб.)');
+            $('#jumper').prop('disabled', false);
+        } else {
+            $('#jumpertext').text('Перемычка');
+            $('#jumper').prop('disabled', true);
+            $('#jumper').prop('checked', false);
+            sumOrder -= jumper;
+            $('total').text(sumOrder);
+            jumper = 0;
+        }
 
-            if (trunk !== 0) {
-                sumOrder -= trunk;
-                $('#trunk').prop('checked', false);
-                $('total').text(sumOrder);
-            }
+        if (trunk !== 0) {
+            sumOrder -= trunk;
+            $('#trunk').prop('checked', false);
+            $('total').text(sumOrder);
+        }
 
-            trunk = additionList[1].price;
-            $('#trunktext').text('Коврик в багажник (+'+trunk+'руб.)');
-            $('#trunk').prop('disabled', false);
+        trunk = additionList[1].price;
+        $('#trunktext').text('Коврик в багажник (+'+trunk+'руб.)');
+        $('#trunk').prop('disabled', false);
 
-            if (isRow3){
-                row3 = additionList[2].price;
-                $('#row3text').text('Третий ряд (+'+row3+'руб.)');
-                $('#row3').prop('disabled', false);
-            } else {
-                $('#row3text').text('Третий ряд');
-                $('#row3').prop('disabled', true);
-                $('#row3').prop('checked', false);
-                sumOrder -= row3;
-                $('total').text(sumOrder);
-                row3 = 0;
-            }
+        if (isRow3){
+            row3 = additionList[2].price;
+            $('#row3text').text('Третий ряд (+'+row3+'руб.)');
+            $('#row3').prop('disabled', false);
+        } else {
+            $('#row3text').text('Третий ряд');
+            $('#row3').prop('disabled', true);
+            $('#row3').prop('checked', false);
+            sumOrder -= row3;
+            $('total').text(sumOrder);
+            row3 = 0;
         }
 
         defaultSelectEquipment();
@@ -193,10 +192,45 @@ selectEquipment.change(function (){
         sumOrder -= priceEquipment;
         $('#total').text(sumOrder);
     }
-
-
-
 })
+
+//обработчик выбора цвета основы
+$('#rug-color').change(function (){
+    if ($('#rug-color :selected').text() !== 'Выберите цвет') {
+        for (let i = 0; i < colorList.length; i++) {
+            if (colorList[i].id == $('#rug-color :selected').val()) {
+                $('#rugimg img').attr("src", colorList[i].url);
+                $('#rugimg img').show();
+            }
+        }
+    }
+    else $('#rugimg img').hide();
+})
+
+//обработчик выбора цвета окантовки
+$('#border-color').change(function (){
+    if ($('#border-color :selected').text() !== 'Выберите цвет') {
+        for (let i = 0; i < colorList.length; i++) {
+            if (colorList[i].id == $('#border-color :selected').val()) {
+                $('#borderimg').css("background", colorList[i].url);
+            }
+        }
+    }
+})
+
+//обработчик выбора цвета окантовки
+$('#border-color').change(function (){
+    if ($('#border-color :selected').text() !== 'Выберите цвет') {
+        for (let i = 0; i < colorList.length; i++) {
+            if (colorList[i].id == $('#border-color :selected').val()) {
+                $('#border-color img').attr("src", colorList[i].url);
+                $('#border-color img').show();
+            }
+        }
+    }
+    else $('#rugimg img').hide();
+})
+
 
 //функция добавления перемычки
 $('#jumper').change(function () {
@@ -230,12 +264,24 @@ function changeSumOrder(el, price) {
 $('#saddle').change(function () {
     if ($('#saddle option:selected').text() !== 'Без подпятника') {
         if (!isSaddle) {
+            if ($('#saddle option:selected').text() === 'Алюминиевый' ||
+                $('#saddle option:selected').text() === 'Полиуретановый') saddle = additionList[4].price;
+            else saddle = additionList[7].price;
             $('#total').text(sumOrder += saddle);
             isSaddle = true;
+        } else {
+            sumOrder -= saddle;
+            if ($('#saddle option:selected').text() === 'Алюминиевый' ||
+                $('#saddle option:selected').text() === 'Полиуретановый') saddle = additionList[4].price;
+            else saddle = additionList[7].price;
+            sumOrder += saddle;
+            $('#total').text(sumOrder);
         }
+
     } else {
         $('#total').text(sumOrder -= saddle);
         isSaddle = false;
+        saddle = 0;
     }
 })
 
@@ -246,11 +292,13 @@ $('#btnMinusNameplate').click(function () {
         $('#countNameplate').text(countNameplate);
         $('#total').text(sumOrder -= 150);
     }
+    if (countNameplate == 0) $('#rugimg div').hide();
 })
 
 //функция прибавления шильдика
 $('#btnPlusNameplate').click(function () {
     countNameplate++;
+    $('#rugimg div').show();
     $('#countNameplate').text(countNameplate);
     $('#total').text(sumOrder += 150);
 })
@@ -264,6 +312,7 @@ function initialize() {
     getAllAditions();
     getAllMaterials();
 
+
     $('#jumper').prop('disabled', true);
     $('#row3').prop('disabled', true);
     $('#trunk').prop('disabled', true);
@@ -271,31 +320,46 @@ function initialize() {
     selectModification.prop('disabled', true);
     selectEquipment.prop('disabled', true);
 
+    $('#rugimg').append('<img style="height: 100%; width: 100%; object-fit: cover; border-radius: 5px" src="" />');
+    $('#rugimg img').hide();
+    $('#rugimg div').hide();
 
-    if (material === 'pile'){
-        $('#form3d').attr('hidden', 'hidden');
-    }
     if (material === 'eva'){
         $('#stitching-color').attr('hidden', 'hidden');
+        materialCategory = 1;
+    } else {
+        $('#form3d').attr('hidden', 'hidden');
+        if (material === 'economy') {
+            materialCategory = 2;
+        } else if (material === 'standart'){
+            materialCategory = 3;
+        } else if (material === 'premium'){
+            materialCategory = 4;
+        }
     }
 
     $.ajax({
-        url: '/picture',
+        url: '/color/'+materialCategory,
         method: 'GET',
         dataType: 'json',
         cache: false,
         success: function (data){
-            console.log('picture = ');
-            console.log(data.pathPicture);
-            $('#rugimg').append('<img src="img/'+ data.pathPicture +'" />');
+            console.log(data);
+            colorList = data;
+            for(let i = 0; i < colorList.length; i++){
+                if (colorList[i].plot === 'Основа') {
+                    $('#rug-color').append('<option value="' + colorList[i].id + '">' + colorList[i].color + '</option>');
+                }
+                if (colorList[i].plot === 'Окантовка') {
+                    $('#border-color').append('<option value="' + colorList[i].id + '">' + colorList[i].color + '</option>');
+                }
+            }
         },
         error: function(xhr, status, error){
             let errorMessage = xhr.status + ': ' + xhr.statusText;
             alert('Error - ' + errorMessage);
         }
-
     })
-
 }
 
 //запрос в БД для получения списка марок автомобилей
@@ -308,6 +372,29 @@ function getAllBrands(){
         success: function (brandlist) {
             for(let i = 0; i < brandlist.length; i++){
                 $('#brand').append('<option value="'+ brandlist[i].id +'">'+ brandlist[i].name +'</option>');
+            }
+        },
+        error: function(xhr, status, error){
+            let errorMessage = xhr.status + ': ' + xhr.statusText;
+            alert('Error - ' + errorMessage);
+        }
+    })
+}
+
+function getEquipments(category){
+    //получение списка вожможных комплектов
+    $.ajax({
+        url: '/equipment/' + category + '/' + materialCategory,
+        method: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function (data){
+            equipmentList = data;
+            console.log(equipmentList);
+
+            for(let i = 0; i < equipmentList.length; i++){
+                selectEquipment.append('<option value="'+ equipmentList[i].id +'">'+
+                    equipmentList[i].name+ ' (+' + equipmentList[i].price + ' руб.)</option>');
             }
         },
         error: function(xhr, status, error){
@@ -331,6 +418,11 @@ function getAllAditions(){
             $('#saddle').append('<option value="'+additionList[4].id+'">'+additionList[4].name+'</option>');
             $('#saddle').append('<option value="'+additionList[6].id+'">'+additionList[6].name+'</option>');
             saddle = additionList[4].price;
+            if (material !== 'eva') {
+                $('#saddle').append('<option value="' + additionList[7].id + '">' + additionList[7].name + '</option>');
+                saddle = additionList[7].price;
+            }
+
             namePlate = additionList[5].price;
         },
         error: function(xhr, status, error){
@@ -357,3 +449,4 @@ function getAllMaterials(){
         }
     })
 }
+
